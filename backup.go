@@ -33,6 +33,7 @@ var (
 	optLaunch  = ""
 	optTar     = false
 	optAll     = false
+	optCollapse = false
 	optStopped = false
 	optVerbose = false
 
@@ -228,7 +229,7 @@ func backup(ID string) error {
 	}
 
 	for _, m := range conf.Mounts {
-		// fmt.Printf("Mount (type %s) %s -> %s\n", m.Type, m.Source, m.Destination)
+		fmt.Printf("Mount (type %s) %s -> %s\n", m.Type, m.Source, m.Destination)
 		err := filepath.Walk(m.Source, collectFile)
 		if err != nil {
 			return err
@@ -291,6 +292,7 @@ func init() {
 	backupCmd.Flags().StringVarP(&optLaunch, "launch", "l", "", "launch external program with file-list as argument")
 	backupCmd.Flags().BoolVarP(&optTar, "tar", "t", false, "create tar backups")
 	backupCmd.Flags().BoolVarP(&optAll, "all", "a", false, "backup all running containers")
+	backupCmd.Flags().BoolVarP(&optCollapse, "collapse", "c", false, "collapse volume paths to single directory")
 	backupCmd.Flags().BoolVarP(&optStopped, "stopped", "s", false, "in combination with --all: also backup stopped containers")
 	backupCmd.Flags().BoolVarP(&optVerbose, "verbose", "v", false, "print detailed backup progress")
 	RootCmd.AddCommand(backupCmd)
