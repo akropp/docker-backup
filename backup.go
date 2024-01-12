@@ -232,7 +232,6 @@ func backup(ID string) error {
 		fmt.Printf("Mount (type %s) %s -> %s\n", m.Type, m.Source, m.Destination)
 		if optCollapse {
 			collectFile(m.Source, nil, nil)
-			return nil
 		} else {
 			err := filepath.Walk(m.Source, collectFile)
 			if err != nil {
