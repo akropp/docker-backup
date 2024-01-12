@@ -229,7 +229,9 @@ func backup(ID string) error {
 	}
 
 	for _, m := range conf.Mounts {
-		fmt.Printf("Mount (type %s) %s -> %s\n", m.Type, m.Source, m.Destination)
+		if optVerbose {
+			fmt.Printf("Mount (type %s) %s -> %s\n", m.Type, m.Source, m.Destination)
+		}
 		if optCollapse {
 			collectFile(m.Source, nil, nil)
 		} else {
